@@ -18,8 +18,17 @@ public class Graph {
 		return adjList;
 	}
 	
+	/**
+	 * By default graph is undirected
+	 * @param V
+	 * @param edges
+	 */
+	public Graph(int V , List<Edge> edges ) {
+		this(V, edges, false);
+	}
+	
 	@SuppressWarnings("unchecked")
-	public Graph(int V , List<Edge> edges) {
+	public Graph(int V , List<Edge> edges , boolean directed) {
 		
 		adjList = new LinkedList[V];
 		
@@ -33,6 +42,9 @@ public class Graph {
 			adjList[edge.src].add(edge.dest);
 			
 			//Add the dest also if the graph is undirected..
+			if(!directed) {
+				adjList[edge.dest].add(edge.src);
+			}
 		
 		}			
 	}
@@ -56,7 +68,7 @@ public class Graph {
 								new Edge(2, 0), new Edge(2, 1),new Edge(3, 2), 
 								new Edge(4, 5), new Edge(5, 4));
 		
-		Graph graph = new Graph(6, edges);
+		Graph graph = new Graph(6, edges,true);
 		graph.printGraph();
 		
 	}
